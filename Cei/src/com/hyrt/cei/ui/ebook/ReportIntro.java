@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.vudroid.pdfdroid.PdfViewerActivity;
 
@@ -107,29 +109,40 @@ public class ReportIntro extends Activity {
 		textJianj = (TextView) findViewById(R.id.report_intro_jiej);
 		textJianj.setText(report.getIntro().replace("\n", "").trim());
 		textMul = (LinearLayout) findViewById(R.id.report_intro_mul);
-		String[] directories = report.getMulu().split("\n");
 		LinearLayout mulNum = (LinearLayout)findViewById(R.id.report_intro_mulnum);
+		Pattern pattern = Pattern.compile("[.](\\.[0-9]{1,4})");
+		String[] directories = pattern.split(report.getMulu());
+		String[] numdirectories = new String[directories.length];
+      Matcher matcher = pattern.matcher(report.getMulu());
+      int j = 0;
+      while(matcher.find()){
+    	  numdirectories[j] = matcher.group();
+    	  j++;
+      	}
+		for(int i=0;i<directories.length;i++){
+			try{String leftContent = null;
+			if(directories[i].length() > 17)
+				leftContent = directories[i].substring(0,17)+"................................................................................................................................................................................................................................................................................................................";
+			else
+				leftContent = directories[i].substring(0,directories[i].length()-3)+"...................................................................................................................................................................................................................................................................................................";
+				TextView tv = new TextView(this);
+				tv.setTextColor(getResources().getColor(android.R.color.black));
+				tv.setText(leftContent);
+				tv.setTextSize(15);
+				tv.setSingleLine(true);
+				textMul.addView(tv);
+			}catch(Exception e){
+			}
+		}
 		for (int i = 0; i < directories.length; i++) {
 			try{
 				TextView tv = new TextView(this);
 				tv.setTextColor(getResources().getColor(android.R.color.black));
-				tv.setText("...."+directories[i].substring(directories[i].lastIndexOf(".")+1,directories[i].length()));
+				tv.setText("...."+numdirectories[i].substring(numdirectories[i].lastIndexOf(".")+1,numdirectories[i].length()));
 				tv.setTextSize(15);
 				tv.setSingleLine(true);
-
-				mulNum.addView(tv);
-			}catch(Exception e){
-			}
-		}
-		for(int i=0;i<directories.length;i++){
-			try{
-			String leftContent = directories[i].substring(0,directories[i].length()-3)+".....................................................................................................................................................................................................................................";
-			TextView tv = new TextView(this);
-			tv.setTextColor(getResources().getColor(android.R.color.black));
-			tv.setText(leftContent);
-			tv.setTextSize(15);
-			tv.setSingleLine(true);
-			textMul.addView(tv);
+				if(!"....".equals(tv.getText()))
+					mulNum.addView(tv);
 			}catch(Exception e){
 			}
 		}
