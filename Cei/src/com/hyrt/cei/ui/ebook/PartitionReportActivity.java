@@ -252,6 +252,11 @@ public class PartitionReportActivity extends Activity implements
 						handler.sendEmptyMessage(404);
 						return;
 					}
+					for(int i=0;i<allData.size();i++){
+						if(allData.get(i).getOutlineTitle().equals("报告分类")){
+							allData.get(i).setParent("");
+						}
+					}
 					for (ReportpaitElement reportpaitElement : allData) {
 						if (reportpaitElement.getParent() == null
 								|| reportpaitElement.getParent().equals("")) {

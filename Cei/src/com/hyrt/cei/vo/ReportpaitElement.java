@@ -1,6 +1,12 @@
 package com.hyrt.cei.vo;
 
-public class ReportpaitElement {
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+
+import android.util.Log;
+
+public class ReportpaitElement{
 	public static String ID="_id";
 	public static String REPORTPORTID="report_port_id";
 	public static String TITLE="outlineTitle";
@@ -15,7 +21,9 @@ public class ReportpaitElement {
 	private boolean mhasChild ;
 	private String parent;
 	private int level;
-	private boolean expanded; 
+	private boolean expanded;
+	
+
 	
 	public String getId() {
 		return id;

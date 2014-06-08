@@ -1,6 +1,6 @@
 package com.hyrt.cei.vo;
 
-public class ReportpaitElement {
+public class ReportpaitElement implements Comparable<ReportpaitElement> {
 	public static String ID="_id";
 	public static String REPORTPORTID="report_port_id";
 	public static String TITLE="outlineTitle";
@@ -75,5 +75,10 @@ public class ReportpaitElement {
 
 
 	public ReportpaitElement(){}
+	
+	@Override
+	public int compareTo(ReportpaitElement another) {
+		return this.outlineTitle.compareTo(another.getOutlineTitle());
+	}
 	
 }
