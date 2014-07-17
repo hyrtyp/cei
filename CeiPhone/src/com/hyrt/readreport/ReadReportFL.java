@@ -166,7 +166,7 @@ public class ReadReportFL extends ContainerActivity implements OnClickListener {
 							//获取排序好的子集栏目 temp1
 							ReportpaitElement[] reportpaitElements = new ReportpaitElement[secondData.size()];
 							for(int i=0;i<secondData.size();i++){
-								reportpaitElements[compareNumStr.get(secondData.get(i).getOutlineTitle())-1] = secondData.get(i);
+								reportpaitElements[i] = secondData.get(i);
 							}
 							secondData.clear();
 							for(int i=0;i<reportpaitElements.length;i++){
